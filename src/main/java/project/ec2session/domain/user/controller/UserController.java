@@ -17,7 +17,7 @@ import project.ec2session.domain.user.service.UserService;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
-@Tag(name = "[조회 관련 API]", description = "조회 관련 API")
+@Tag(name = "[사용자 관련 API]", description = "사용자 관련 API")
 public class UserController implements UserApi{
     private final UserService userService;
 

@@ -24,8 +24,8 @@ public interface UserApi {
                             @ExampleObject("""
                                     {
                                      "id": 1,
-                                     "username": "hi",
-                                     "nickname": "hello"
+                                     "username": "test",
+                                     "nickname": "tester"
                                     }
                                     """)
                     })),
@@ -64,7 +64,7 @@ public interface UserApi {
     @GetMapping("/me")
     ResponseEntity<?> getUserInfo(@AuthenticationPrincipal CustomUserDetails userDetails);
 
-    @Operation(summary = "전체 사용자 조회", description = "전체 사용자 조회 시도")
+    @Operation(summary = "전체 사용자 정보 조회", description = "전체 사용자 정보 조회 시도(인증된 사용자만 접근 가능)")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "전체 사용자 조회 성공",
                     content = @Content(mediaType = "application/json", examples = {
@@ -72,13 +72,13 @@ public interface UserApi {
                                     [
                                       {
                                        "userId": 1,
-                                       "username": "hi",
-                                       "nickname": "hello"
+                                       "username": "test1",
+                                       "nickname": "tester1"
                                       },
                                       {
                                        "userId": 2,
-                                       "username": "hello",
-                                       "nickname": "hello world"
+                                       "username": "test2",
+                                       "nickname": "tester2"
                                       }
                                     ]
                                     """)
@@ -94,20 +94,17 @@ public interface UserApi {
                                     }
                                     """)
                     })),
-            @ApiResponse(responseCode = "500", description = "조회 실패: Authorization 인증 실패시",
+            @ApiResponse(responseCode = "500", description = "조회 실패",
                     content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject("""
+                            @ExampleObject(name = "Authorization 인증 실패시", value = """
                                     {
                                     "timestamp": "2025-06-01T08:54:42.091+00:00",
                                     "status": 500,
                                     "error": "Internal Server Error",
                                     "path": "/api/v1/users"
                                     }
-                                    """)
-                    })),
-            @ApiResponse(responseCode = "500", description = "조회 실패: 잘못된 요청",
-                    content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject("""
+                                    """),
+                            @ExampleObject(name = "잘못된 요청", value = """
                                     {
                                     "status" : "500",
                                     "message" : "서버 에러입니다. 서버 팀에 연락주세요."
@@ -116,9 +113,9 @@ public interface UserApi {
                     }))
     })
     @GetMapping
-    public ResponseEntity<?> getAllUser();
+    ResponseEntity<?> getAllUser();
 
-    @Operation(summary = "사용자 정보 수정", description = "로그인한 사용자 정보 수정 요청")
+    @Operation(summary = "로그인한 사용자 정보 수정", description = "정보 수정 시도(인증된 사용자만 접근 가능)")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "사용자 정보 수정 성공",
                     content = @Content(mediaType = "application/json", examples = {
@@ -136,25 +133,22 @@ public interface UserApi {
                             }
                             """)
                     })),
-            @ApiResponse(responseCode = "500", description = "수정 실패: Authorization 인증 실패시",
+            @ApiResponse(responseCode = "500", description = "수정 실패",
                     content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject("""
-                            {
-                            "timestamp": "2025-06-01T08:54:42.091+00:00",
-                            "status": 500,
-                            "error": "Internal Server Error",
-                            "path": "/api/v1/users"
-                            }
-                            """)
-                    })),
-            @ApiResponse(responseCode = "500", description = "수정 실패: 잘못된 요청",
-                    content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject("""
-                            {
-                            "status" : "500",
-                            "message" : "서버 에러입니다. 서버 팀에 연락주세요."
-                            }
-                            """)
+                            @ExampleObject(name = "Authorization 인증 실패시", value = """
+                                    {
+                                    "timestamp": "2025-06-01T08:54:42.091+00:00",
+                                    "status": 500,
+                                    "error": "Internal Server Error",
+                                    "path": "/api/v1/users"
+                                    }
+                                    """),
+                            @ExampleObject(name = "잘못된 요청", value = """
+                                    {
+                                    "status" : "500",
+                                    "message" : "서버 에러입니다. 서버 팀에 연락주세요."
+                                    }
+                                    """)
                     }))
     })
     @PutMapping

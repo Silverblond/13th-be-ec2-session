@@ -24,25 +24,7 @@ public interface AuthApi {
                             }
                             """)
                     })),
-            @ApiResponse(responseCode = "400", description = "로그인 실패: 잘못된 매개변수",
-                    content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject("""
-                            {
-                            "status" : "404",
-                            "message" : "아이디는 필수 입력 값입니다."
-                            }
-                            """)
-                    })),
-            @ApiResponse(responseCode = "400", description = "로그인 실패: 잘못된 매개변수",
-                    content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject("""
-                            {
-                            "status" : "404",
-                            "message" : "비밀번호는 필수 입력 값입니다."
-                            }
-                            """)
-                    })),
-            @ApiResponse(responseCode = "400", description = "로그인 실패: 잘못된 매개변수",
+            @ApiResponse(responseCode = "400", description = "회원가입 유효성 검사 실패",
                     content = @Content(mediaType = "application/json", examples = {
                             @ExampleObject("""
                             {
@@ -52,18 +34,15 @@ public interface AuthApi {
                             }
                             """)
                     })),
-            @ApiResponse(responseCode = "404", description = "로그인 실패: 잘못된 정보",
+            @ApiResponse(responseCode = "404", description = "로그인 실패",
                     content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject("""
+                            @ExampleObject(name = "잘못된 정보", value = """
                             {
                             "status" : "404",
                             "message" : "정보를 정확히 입력해주세요."
                             }
-                            """)
-                    })),
-            @ApiResponse(responseCode = "404", description = "로그인 실패: 잘못된 비밀번호",
-                    content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject("""
+                            """),
+                            @ExampleObject(name = "잘못된 비밀번호", value = """
                             {
                             "status" : "404",
                             "message" : "잘못된 비밀번호입니다."
@@ -93,26 +72,12 @@ public interface AuthApi {
                             }
                             """)
                     })),
-            @ApiResponse(responseCode = "400", description = "회원가입 실패: 잘못된 매개변수",
+            @ApiResponse(responseCode = "400", description = "회원가입 유효성 검사 실패",
                     content = @Content(mediaType = "application/json", examples = {
                             @ExampleObject("""
                             {
-                            "password" : "비밀번호는 필수 입력 값입니다."
-                            }
-                            """)
-                    })),
-            @ApiResponse(responseCode = "400", description = "회원가입 실패: 잘못된 매개변수",
-                    content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject("""
-                            {
-                            "nickname" : "닉네임은 필수 입력 값입니다."
-                            }
-                            """)
-                    })),
-            @ApiResponse(responseCode = "400", description = "회원가입 실패: 잘못된 매개변수",
-                    content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject("""
-                            {
+                            "password" : "비밀번호는 필수 입력 값입니다.",
+                            "nickname" : "닉네임은 필수 입력 값입니다.",
                             "username" : "아이디는 필수 입력 값입니다."
                             }
                             """)

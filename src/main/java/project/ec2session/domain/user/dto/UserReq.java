@@ -14,7 +14,7 @@ public class UserReq {
             @Schema(description = "사용자 비밀번호", example = "password123@")
             String password,
             @NotBlank(message = "닉네임은 필수 입력 값입니다.")
-            @Schema(description = "사용자 닉네임", example = "hello")
+            @Schema(description = "사용자 닉네임", example = "tester")
             String nickname
     ) {
         public User toEntity(String encodedPassword) {
@@ -37,7 +37,7 @@ public class UserReq {
 
     public record UpdateInfo(
             @NotBlank(message = "닉네임은 필수 입력 값입니다.")
-            @Schema(description = "사용자 닉네임", example = "hello")
+            @Schema(description = "사용자 닉네임", example = "tester")
             String nickname
     ) { }
 }

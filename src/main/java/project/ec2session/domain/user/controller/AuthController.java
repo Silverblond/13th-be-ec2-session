@@ -1,5 +1,6 @@
 package project.ec2session.domain.user.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
-public class AuthController{
+@Tag(name = "[인증 관련 API]", description = "인증 관련 API")
+public class AuthController implements AuthApi{
     private final AuthService authService;
 
     @PostMapping("/sign-in")

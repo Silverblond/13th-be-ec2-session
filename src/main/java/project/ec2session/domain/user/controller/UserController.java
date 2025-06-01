@@ -1,5 +1,6 @@
 package project.ec2session.domain.user.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,8 @@ import project.ec2session.domain.user.service.UserService;
 @RestController
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
-public class UserController {
+@Tag(name = "[조회 관련 API]", description = "조회 관련 API")
+public class UserController implements UserApi{
     private final UserService userService;
 
     @GetMapping("/me")

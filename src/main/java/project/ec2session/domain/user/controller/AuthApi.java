@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,19 +23,18 @@ public interface AuthApi {
                             }
                             """)
                     })),
-            @ApiResponse(responseCode = "400", description = "회원가입 유효성 검사 실패",
+            @ApiResponse(responseCode = "400", description = "로그인 실패: 유효성 검사 실패",
                     content = @Content(mediaType = "application/json", examples = {
                             @ExampleObject("""
                             {
-                            "status" : "404",
-                            "message" : "비밀번호는 필수 입력 값입니다.",
-                            "message" : "아이디는 필수 입력 값입니다."
+                            "password" : "비밀번호는 필수 입력 값입니다.",
+                            "username" : "아이디는 필수 입력 값입니다."
                             }
                             """)
                     })),
             @ApiResponse(responseCode = "404", description = "로그인 실패",
                     content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject(name = "잘못된 정보", value = """
+                            @ExampleObject(name = "잘못된 정보(아이디)", value = """
                             {
                             "status" : "404",
                             "message" : "정보를 정확히 입력해주세요."
@@ -51,7 +49,7 @@ public interface AuthApi {
                     })),
             @ApiResponse(responseCode = "500", description = "로그인 실패: 잘못된 요청",
                     content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject("""
+                            @ExampleObject(name ="잘못된 Body 요청, 잘못된 api주소로 요청시, 동일한 username이 존재할 경우", value = """
                             {
                             "status" : "500",
                             "message" : "서버 에러입니다. 서버 팀에 연락주세요."
@@ -72,7 +70,7 @@ public interface AuthApi {
                             }
                             """)
                     })),
-            @ApiResponse(responseCode = "400", description = "회원가입 유효성 검사 실패",
+            @ApiResponse(responseCode = "400", description = "회원가입: 유효성 검사 실패",
                     content = @Content(mediaType = "application/json", examples = {
                             @ExampleObject("""
                             {
@@ -84,7 +82,7 @@ public interface AuthApi {
                     })),
             @ApiResponse(responseCode = "500", description = "회원가입 실패: 잘못된 요청",
                     content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject("""
+                            @ExampleObject(name ="잘못된 Body 요청, 잘못된 api주소로 요청시", value = """
                             {
                             "status" : "500",
                             "message" : "서버 에러입니다. 서버 팀에 연락주세요."

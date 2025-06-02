@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -64,7 +63,8 @@ public interface UserApi {
     @GetMapping("/me")
     ResponseEntity<?> getUserInfo(@AuthenticationPrincipal CustomUserDetails userDetails);
 
-    @Operation(summary = "전체 사용자 정보 조회", description = "전체 사용자 정보 조회 시도(인증된 사용자만 접근 가능)")
+    @Operation(summary = "전체 사용자 정보 조회", description = "전체 사용자 정보 조회 시도(인증된 사용자만 접근 가능)\n" +
+            "Header(Key, Value) : (Authorization : Bearer <accessKey>)")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "전체 사용자 조회 성공",
                     content = @Content(mediaType = "application/json", examples = {
@@ -83,7 +83,7 @@ public interface UserApi {
                                     ]
                                     """)
                     })),
-            @ApiResponse(responseCode = "403", description = "조회 실패: Authorization 미 인증시",
+            @ApiResponse(responseCode = "403", description = "조회 실패: Authorization와 함께 요청을 보내지 않았을 경우",
                     content = @Content(mediaType = "application/json", examples = {
                             @ExampleObject("""
                                     {
@@ -96,7 +96,7 @@ public interface UserApi {
                     })),
             @ApiResponse(responseCode = "500", description = "조회 실패",
                     content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject(name = "Authorization 인증 실패시", value = """
+                            @ExampleObject(name = "Authorization 인증 실패시(잘못된 accessKey)", value = """
                                     {
                                     "timestamp": "2025-06-01T08:54:42.091+00:00",
                                     "status": 500,
@@ -104,7 +104,7 @@ public interface UserApi {
                                     "path": "/api/v1/users"
                                     }
                                     """),
-                            @ExampleObject(name = "잘못된 요청", value = """
+                            @ExampleObject(name = "잘못된 Body 요청, 잘못된 api주소로 요청시", value = """
                                     {
                                     "status" : "500",
                                     "message" : "서버 에러입니다. 서버 팀에 연락주세요."
@@ -122,6 +122,14 @@ public interface UserApi {
                             @ExampleObject("""
                                     요청 성공""")
                     })),
+            @ApiResponse(responseCode = "400", description = "유효성 검사 실패",
+                    content = @Content(mediaType = "application/json", examples = {
+                            @ExampleObject("""
+                            {
+                            "nickname": "닉네임은 필수 입력 값입니다."
+                            }
+                            """)
+                    })),
             @ApiResponse(responseCode = "403", description = "수정 실패: Authorization 미 인증시",
                     content = @Content(mediaType = "application/json", examples = {
                             @ExampleObject("""
@@ -135,7 +143,7 @@ public interface UserApi {
                     })),
             @ApiResponse(responseCode = "500", description = "수정 실패",
                     content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject(name = "Authorization 인증 실패시", value = """
+                            @ExampleObject(name = "Authorization 인증 실패시(잘못된 accessKey)", value = """
                                     {
                                     "timestamp": "2025-06-01T08:54:42.091+00:00",
                                     "status": 500,
@@ -143,7 +151,7 @@ public interface UserApi {
                                     "path": "/api/v1/users"
                                     }
                                     """),
-                            @ExampleObject(name = "잘못된 요청", value = """
+                            @ExampleObject(name = "잘못된 Body 요청, 잘못된 api주소로 요청시", value = """
                                     {
                                     "status" : "500",
                                     "message" : "서버 에러입니다. 서버 팀에 연락주세요."

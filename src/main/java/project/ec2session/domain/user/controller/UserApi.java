@@ -22,7 +22,7 @@ public interface UserApi {
                     content = @Content(mediaType = "application/json", examples = {
                             @ExampleObject("""
                                     {
-                                     "id": 1,
+                                     "userId": 1,
                                      "username": "test",
                                      "nickname": "tester"
                                     }
@@ -39,6 +39,15 @@ public interface UserApi {
                                     }
                                     """)
                     })),
+            @ApiResponse(responseCode = "404", description = "정보 조회 실패",
+                    content = @Content(mediaType = "application/json", examples = {
+                            @ExampleObject(value = """
+                                    {
+                                        "status": "404",
+                                        "message": "존재하지 않는 회원입니다."
+                                    }
+                                    """)
+                    })),
             @ApiResponse(responseCode = "500", description = "조회 실패: Authorization 인증 실패시",
                     content = @Content(mediaType = "application/json", examples = {
                             @ExampleObject("""
@@ -49,16 +58,16 @@ public interface UserApi {
                                     "path": "/api/v1/users/me"
                                     }
                                     """)
-                    })),
-            @ApiResponse(responseCode = "500", description = "조회 실패: 잘못된 요청",
-                    content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject("""
-                                    {
-                                    "status" : "500",
-                                    "message" : "서버 에러입니다. 서버 팀에 연락주세요."
-                                    }
-                                    """)
                     }))
+//            @ApiResponse(responseCode = "500", description = "조회 실패: 잘못된 요청",
+//                    content = @Content(mediaType = "application/json", examples = {
+//                            @ExampleObject("""
+//                                    {
+//                                    "status" : "500",
+//                                    "message" : "서버 에러입니다. 서버 팀에 연락주세요."
+//                                    }
+//                                    """)
+//                    }))
     })
     @GetMapping("/me")
     ResponseEntity<?> getUserInfo(@AuthenticationPrincipal CustomUserDetails userDetails);
@@ -140,6 +149,15 @@ public interface UserApi {
                             "path": "/api/v1/users"
                             }
                             """)
+                    })),
+            @ApiResponse(responseCode = "404", description = "정보 조회 실패",
+                    content = @Content(mediaType = "application/json", examples = {
+                            @ExampleObject(value = """
+                                    {
+                                        "status": "404",
+                                        "message": "존재하지 않는 회원입니다."
+                                    }
+                                    """)
                     })),
             @ApiResponse(responseCode = "500", description = "수정 실패",
                     content = @Content(mediaType = "application/json", examples = {

@@ -34,7 +34,7 @@ public interface AuthApi {
                     })),
             @ApiResponse(responseCode = "404", description = "로그인 실패",
                     content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject(name = "잘못된 정보(아이디)", value = """
+                            @ExampleObject(name = "잘못된 정보(username)", value = """
                             {
                             "status" : "404",
                             "message" : "정보를 정확히 입력해주세요."

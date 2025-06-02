@@ -14,7 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@Column(unique = true) 새로운 테이블에 요청하거나 DB에 따로 명령어로 조건 추가해야할듯
+    @Column(unique = true) //새로운 테이블에 요청하거나 DB에 따로 명령어로 조건 추가해야할듯
     private String username;
 
     private String password;

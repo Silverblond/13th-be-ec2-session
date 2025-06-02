@@ -23,7 +23,7 @@ public interface AuthApi {
                             }
                             """)
                     })),
-            @ApiResponse(responseCode = "400", description = "로그인 실패: 유효성 검사 실패",
+            @ApiResponse(responseCode = "400", description = "유효성 검사 실패",
                     content = @Content(mediaType = "application/json", examples = {
                             @ExampleObject("""
                             {
@@ -47,9 +47,9 @@ public interface AuthApi {
                             }
                             """)
                     })),
-            @ApiResponse(responseCode = "500", description = "로그인 실패: 잘못된 요청",
+            @ApiResponse(responseCode = "500", description = "잘못된 요청",
                     content = @Content(mediaType = "application/json", examples = {
-                            @ExampleObject(name ="잘못된 Body 요청, 잘못된 api주소로 요청시, 동일한 username이 존재할 경우", value = """
+                            @ExampleObject(name ="잘못된 Body 요청, 잘못된 api주소로 요청시", value = """
                             {
                             "status" : "500",
                             "message" : "서버 에러입니다. 서버 팀에 연락주세요."
@@ -70,7 +70,7 @@ public interface AuthApi {
                             }
                             """)
                     })),
-            @ApiResponse(responseCode = "400", description = "회원가입: 유효성 검사 실패",
+            @ApiResponse(responseCode = "400", description = "유효성 검사 실패",
                     content = @Content(mediaType = "application/json", examples = {
                             @ExampleObject("""
                             {
@@ -80,7 +80,16 @@ public interface AuthApi {
                             }
                             """)
                     })),
-            @ApiResponse(responseCode = "500", description = "회원가입 실패: 잘못된 요청",
+            @ApiResponse(responseCode = "409", description = "중복 아이디로 회원가입 요청",
+                    content = @Content(mediaType = "application/json", examples = {
+                            @ExampleObject("""
+                            {
+                            "status": 409,
+                            "message": "이미 사용 중인 username 입니다."
+                            }
+                            """)
+                    })),
+            @ApiResponse(responseCode = "500", description = "잘못된 요청",
                     content = @Content(mediaType = "application/json", examples = {
                             @ExampleObject(name ="잘못된 Body 요청, 잘못된 api주소로 요청시", value = """
                             {

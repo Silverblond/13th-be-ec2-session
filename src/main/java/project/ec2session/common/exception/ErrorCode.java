@@ -14,6 +14,9 @@ public enum ErrorCode {
     // 존재하지 않는 값을 보낼 때.
     USER_NOT_FOUND(404, "존재하지 않는 회원입니다."),
 
+    // 중복 데이터(아이디)
+    ALREADY_USED_USERNAME(409, "이미 사용 중인 username 입니다."),
+
     // 서버 에러
     INTERNAL_SERVER_ERROR(500, "서버 에러입니다. 서버 팀에 연락주세요.");
 

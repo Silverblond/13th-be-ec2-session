@@ -1,5 +1,6 @@
 package project.ec2session.domain.user.service;
 
+import com.sun.jdi.request.DuplicateRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,10 @@ public class AuthService {
 
     @Transactional
     public Long signUp(UserReq.SignUpDto signUpDto) {
+        //중복 아이디 확인 로직
+        if(userRepository.existsByUsername(signUpDto.username())) {
+            throw new CustomException(ErrorCode.ALREADY_USED_USERNAME);
+        }
         User user =
                 signUpDto.toEntity(passwordEncoder.encode(signUpDto.password()));
 
